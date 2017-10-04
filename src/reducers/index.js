@@ -1,6 +1,22 @@
 import {ADD_RECIPE, REMOVE_FROM_CALENDAR} from "../actions";
 
-// Initial state of reducer
+// if same meals are to be consumed for multiple days then duplicating is not best way.
+// hence use new reducer that would have food.
+// NOTE that action type is same in both reducers. so we'll have to do combineReducers()
+function food(state = {}, action) {
+    switch (action.type) {
+        case ADD_RECIPE :
+            const {recipe} = action;
+
+            return {
+                ...state,
+                [recipe.label]: recipe,
+            };
+        default :
+            return state
+    }
+}
+
 const initialCalendarState = {
     sunday: {
         breakfast: null,
