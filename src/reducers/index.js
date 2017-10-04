@@ -1,3 +1,5 @@
+import {combineReducers} from "redux";
+
 import {ADD_RECIPE, REMOVE_FROM_CALENDAR} from "../actions";
 
 // if same meals are to be consumed for multiple days then duplicating is not best way.
@@ -82,4 +84,7 @@ function calendar(state = initialCalendarState, action) {
     }
 }
 
-export default calendar
+export default combineReducers({
+    food,
+    calendar,
+})
