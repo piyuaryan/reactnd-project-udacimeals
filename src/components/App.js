@@ -1,7 +1,17 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {addRecipe, removeFromCalendar} from "../actions";
 
 class App extends Component {
+
+    /**
+     * If we do not want to use mapDispatchToProps, we can dispatch the action like this.
+     * But mapDispatchToProps makes it more cleaner and splits the responsibility from writing everything into component
+     */
+    // doThing = () => {
+    //     this.props.dispatch(addRecipe({}))
+    // };
+
     render() {
         console.log(this.props);
         return (
@@ -12,7 +22,6 @@ class App extends Component {
     }
 }
 
-// map redux state to Component props
 function mapStateToProps(calendar) {
     const dayOrder = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
@@ -30,7 +39,14 @@ function mapStateToProps(calendar) {
     }
 }
 
-// to connect app component to redux store to get our calendar state inside of redux-store
+function mapDispatchToProps(dispatch) {
+    return {
+        selectRecipe: (data) => dispatch(addRecipe(data)),
+        remove: (data) => dispatch(removeFromCalendar(data))
+    }
+}
+
 export default connect(
     mapStateToProps,
+    mapDispatchToProps
 )(App)
